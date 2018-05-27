@@ -10,7 +10,7 @@ import (
 	"flag"
 	"golang.org/x/crypto/ssh/terminal"
 	"syscall"
-	"./modules/Binary"
+	"github.com/dorako321/isu-image-extractor/modules/Binary"
 )
 
 var (
@@ -71,7 +71,6 @@ func main() {
 	var data []byte
 	for rows.Next() {
 		err = rows.Scan(&id, &data)
-
 		// バイナリデータから拡張子を判定
 		ext := Binary.GetExtensionName(data)
 		fmt.Println(id, ext)
