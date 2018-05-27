@@ -13,8 +13,8 @@ func GetExtensionName(data []byte) string {
 	if reflect.DeepEqual(data[:len(jpgHeader)], jpgHeader) {
 		return ".jpg"
 	}
-	if reflect.DeepEqual(data[:len(gifHeader)], jpgHeader) {
+	if reflect.DeepEqual(data[:len(gifHeader)], gifHeader) {
 		return ".gif"
 	}
-	return ".unknown"
+	return ""
 }
