@@ -62,7 +62,7 @@ func main() {
 		"SELECT `" + *pkColumn + "`, `" + *dataColumn +
 			"` FROM `" + *tbName + "`")
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Fatalf(err.Error())
 	}
 
 	defer rows.Close()
