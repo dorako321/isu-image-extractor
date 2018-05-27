@@ -7,10 +7,10 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 	"io/ioutil"
-	"reflect"
 	"flag"
 	"golang.org/x/crypto/ssh/terminal"
 	"syscall"
+	"./modules/Binary"
 )
 
 var (
@@ -73,26 +73,9 @@ func main() {
 		err = rows.Scan(&id, &data)
 
 		// バイナリデータから拡張子を判定
-		ext := getExtensionName(data)
+		ext := Binary.GetExtensionName(data)
 		fmt.Println(id, ext)
 		ioutil.WriteFile(*outputDir + "/" + id + ext, data, 0666)
 		os.Exit(0)
 	}
-}
-
-func getExtensionName(data []byte) string {
-	pngHeader := []byte{137, 80, 78, 71, 13, 10, 26, 10}
-	jpgHeader := []byte{255, 216}
-	gifHeader := []byte{71, 73, 70}
-
-	if reflect.DeepEqual(data[:len(pngHeader)], pngHeader) {
-		return ".png"
-	}
-	if reflect.DeepEqual(data[:len(jpgHeader)], jpgHeader) {
-		return ".jpg"
-	}
-	if reflect.DeepEqual(data[:len(gifHeader)], jpgHeader) {
-		return ".gif"
-	}
-	return ".unknown"
 }
